@@ -16,7 +16,7 @@ export default function Home() {
             <br />
             <Link href="/register">Register</Link>
             <br />
-            <Link href="/forgot-password">Forgot Password</Link>
+            <Link href="/order-product">Order Product</Link>
             <br />
         </>
     );

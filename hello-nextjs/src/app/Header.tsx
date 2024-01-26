@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Head() {
     return (
         <header
@@ -8,6 +10,11 @@ export default function Head() {
             }}
         >
             <p>Header</p>
+            <h1>
+                <Link href={`/`} style={{ textDecoration: "none" }}>
+                    Home
+                </Link>
+            </h1>
         </header>
     );
 }

@@ -18,6 +18,10 @@ export default function Home() {
             <br />
             <Link href="/order-product">Order Product</Link>
             <br />
+            <Link href="/dashboard">Dashboard</Link>
+            <br />
+            <Link href="/complex-dashboard">Complex dashboard</Link>
+            <br />
         </>
     );
 }

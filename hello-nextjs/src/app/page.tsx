@@ -20,7 +20,9 @@ export default function Home() {
             <br />
             <Link href="/dashboard">Dashboard</Link>
             <br />
-            <Link href="/complex-dashboard">Complex dashboard</Link>
+            <Link href="/complex-dashboard">Complex dashboard w Parallel routes</Link>
+            <br />
+            <Link href="/f1">Intercepted routes</Link>
             <br />
         </>
     );

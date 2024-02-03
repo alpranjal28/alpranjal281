@@ -3,13 +3,17 @@ export default function DashboardLayout({
     analytics,
     notifications,
     revenue,
+    login,
 }: {
     children: React.ReactNode;
     analytics: React.ReactNode;
     notifications: React.ReactNode;
     revenue: React.ReactNode;
+    login: React.ReactNode;
 }) {
-    return (
+    const isLoggedIn: boolean = false;
+    //set true  |  false
+    return isLoggedIn ? (
         <>
             <div>{children}</div>
             <div
@@ -49,6 +53,11 @@ export default function DashboardLayout({
                     {notifications}
                 </div>
             </div>
+        </>
+    ) : (
+        <>
+            <div>{children}</div>
+               <div style={{ border: "1px solid black" }}>{login}</div>
         </>
     );
 }

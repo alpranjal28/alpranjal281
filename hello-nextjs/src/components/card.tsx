@@ -7,6 +7,8 @@ const Card = ({ children }: { children: React.ReactNode }) => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        height: "auto",
+        width: "auto",
     };
     return <div style={cardStyle}>{children}</div>;
 };

@@ -22,7 +22,9 @@ export default function Home() {
             <br />
             <Link href="/complex-dashboard">Complex dashboard w Parallel routes</Link>
             <br />
-            <Link href="/f1">Intercepted routes</Link>
+            <Link href="/f1">Intercepted routes &#40; refresh to show original pages &#41; </Link>
+            <br />
+            <Link href="/photo-feed">Wonders of the World w Parallel intercepting routes</Link>
             <br />
         </>
     );

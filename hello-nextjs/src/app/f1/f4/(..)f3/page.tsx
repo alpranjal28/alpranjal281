@@ -1,9 +1,9 @@
 import Link from "next/link";
 
-export default function F3() {
+export default function InterceptedF3() {
     return (
         <div>
-            <h1>F3</h1>
+            <h1>(..)Intercepted F3</h1>
             <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,
                 quod.

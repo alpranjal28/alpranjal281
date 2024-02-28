@@ -66,72 +66,68 @@ export default function ProfilePage() {
     redirect("/login");
   }
 
-  try {
-    return (
-      <section className="mt-8">
-        <h1 className="text-center text-primary text-4xl font-semibold mb-8">
-          Profile
-        </h1>
-        <div className=" max-w-md mx-auto">
-          {saved && (
-            <h2
-              className=" bg-green-100 text-center font-medium p-4 rounded-xl
+  return (
+    <section className="mt-8">
+      <h1 className="text-center text-primary text-4xl font-semibold mb-8">
+        Profile
+      </h1>
+      <div className=" max-w-md mx-auto">
+        {saved && (
+          <h2
+            className=" bg-green-100 text-center font-medium p-4 rounded-xl
           border border-green-300"
-            >
-              Profile saved!
-            </h2>
-          )}
-          {isSaving && (
-            <h2
-              className=" bg-gray-100 text-center font-medium p-4 rounded-xl
+          >
+            Profile saved!
+          </h2>
+        )}
+        {isSaving && (
+          <h2
+            className=" bg-gray-100 text-center font-medium p-4 rounded-xl
           border border-gray-300"
-            >
-              Saving profile...
-            </h2>
-          )}
+          >
+            Saving profile...
+          </h2>
+        )}
 
-          <div className="flex justify-center items-center gap-6">
-            <div className="">
-              <div className="p-1 rounded-lg text-center">
-                {image && (
-                  <Image
-                    className="rounded-lg mb-2"
-                    src={`${image}`}
-                    width={96}
-                    height={96}
-                    alt="userImage"
-                    priority={true}
-                  />
-                )}
-                <label>
-                  <input
-                    type="file"
-                    className=" hidden"
-                    onChange={handleFileChange}
-                  />
-                  <span className="block border-2 border-gray-300 cursor-pointer font-semibold py-2 px-8 rounded-lg">
-                    Edit
-                  </span>
-                </label>
-                {/* <button type="button">Edit</button> */}
-              </div>
+        <div className="flex justify-center items-center gap-6">
+          <div className="">
+            <div className="p-1 rounded-lg text-center">
+              {image && (
+                <Image
+                  className="rounded-lg mb-2"
+                  src={`${image}`}
+                  width={96}
+                  height={96}
+                  alt="userImage"
+                  priority={true}
+                />
+              )}
+              <label>
+                <input
+                  type="file"
+                  className=" hidden"
+                  onChange={handleFileChange}
+                />
+                <span className="block border-2 border-gray-300 cursor-pointer font-semibold py-2 px-8 rounded-lg">
+                  Edit
+                </span>
+              </label>
+              {/* <button type="button">Edit</button> */}
             </div>
-
-            <form className="grow" onSubmit={handleProfileInfoUpdate}>
-              <input
-                type="text"
-                placeholder="First and last name"
-                value={`${userName}`}
-                onChange={(ev) => setUserName(ev.target.value)}
-              />
-              <input type="email" value={`${userEmail}`} disabled />
-              <button type="submit">Save</button>
-            </form>
           </div>
+
+          <form className="grow" onSubmit={handleProfileInfoUpdate}>
+            <input
+              type="text"
+              placeholder="First and last name"
+              value={`${userName}`}
+              onChange={(ev) => setUserName(ev.target.value)}
+            />
+            <input type="email" value={`${userEmail}`} disabled />
+            <button type="submit">Save</button>
+          </form>
         </div>
-      </section>
-    );
-  } catch (e) {
-    console.log(e);
-  }
+      </div>
+    </section>
+  );
 }

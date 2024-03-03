@@ -9,15 +9,24 @@ div.hero {
 
 input[type="text"],
 input[type="email"],
-input[type="password"] {
-  @apply block w-full my-2 rounded-xl;
+input[type="password"],
+input[type="number"],
+input[type="tel"] {
+  @apply block w-full mb-2 rounded-xl;
   @apply border p-2 border-gray-300 bg-gray-100;
 }
 
 input[type="text"]:disabled,
 input[type="email"]:disabled,
-input[type="password"]:disabled {
-  @apply bg-gray-300 cursor-not-allowed text-gray-500;
+input[type="password"]:disabled,
+input[type="number"]:disabled,
+input[type="tel"]:disabled {
+  @apply bg-gray-200 cursor-not-allowed text-gray-500;
+}
+
+label{
+  @apply text-gray-500 text-sm bg-white ml-2 ;
+  @apply relative top-1 p-1 pb-0 rounded-lg
 }
 
 button {
@@ -33,4 +42,13 @@ button[type="submit"],
 button[type="submit"]:disabled,
 .submit:disabled{
   @apply bg-red-400 cursor-not-allowed
+}
+
+/* applies to anything that's a child */
+div.tabs > * {
+  @apply bg-gray-300 text-gray-700 rounded-full px-4 py-2
+}
+
+div.tabs > *.active{
+  @apply bg-primary text-white
 }

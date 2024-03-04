@@ -6,6 +6,8 @@ export async function POST(req: any) {
   if (data.get("file")) {
     //upload the file
     const file = data.get("file");
+    const extn = file.name.split(".").slice(-1)[0]; //extension of file
+    const newFileName = uniqid() + "." + extn;
 
     const s3Client = new S3Client({
       region: "us-east-1",
@@ -15,15 +17,11 @@ export async function POST(req: any) {
       },
     });
 
-    const extn = file.name.split(".").slice(-1)[0]; //extension of file
-    const newFileName = uniqid() + "." + extn;
-
     const chunks = [];
     for await (const chunk of file.stream()) {
       chunks.push(chunk);
     }
     const buffer = Buffer.concat(chunks);
-
     const bucket = "food-ordering-webapp";
 
     await s3Client.send(
@@ -33,6 +31,7 @@ export async function POST(req: any) {
         ACL: "public-read",
         ContentType: file.type,
         Body: buffer,
+        Expires: new Date(Date.now() + 1000 * 60), //expires in 60 seconds
       })
     );
     const link = "https://" + bucket + ".s3.amazonaws.com/" + newFileName;

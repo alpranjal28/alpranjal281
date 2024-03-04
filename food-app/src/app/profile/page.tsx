@@ -1,9 +1,8 @@
 "use client";
+import EditableImage from "@/components/layout/EditableImage";
 import Loading from "@/components/layout/Loading";
 import UserTabs from "@/components/layout/UserTabs";
 import { useSession } from "next-auth/react";
-import Image from "next/image";
-import Link from "next/link";
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -50,32 +49,6 @@ export default function ProfilePage() {
     });
   }
 
-  async function handleFileChange(ev: any) {
-    const files = ev.target.files;
-    if (files?.length === 1) {
-      const data = new FormData();
-      data.set("file", files[0]);
-
-      const uploadPromise = fetch("/api/upload", {
-        method: "POST",
-        body: data,
-      }).then(async (resp) => {
-        if (resp.ok) {
-          const link = await resp.json();
-          console.log("profilePage fileHandler-link", link); /////
-          setImage(link); //link of s3 image comes perfectly
-        }
-        throw new Error("Error uploading image!");
-      });
-
-      await toast.promise(uploadPromise, {
-        loading: "Uploading...",
-        success: "Image uploaded!",
-        error: "Error uploading image!",
-      });
-    }
-  }
-
   useEffect(() => {
     if (status === "authenticated") {
       fetch("/api/profile").then(async (resp) => {
@@ -114,30 +87,7 @@ export default function ProfilePage() {
         <div className="flex justify-center gap-6">
           <div className="">
             <div className="p-1 rounded-lg text-center">
-              {image && (
-                <Image
-                  className="rounded-lg mt-5"
-                  src={`${image}`}
-                  width={96}
-                  height={96}
-                  alt="userImage"
-                  priority={true}
-                />
-              )}
-              <label>
-                <input
-                  type="file"
-                  className=" hidden"
-                  onChange={handleFileChange}
-                />
-                <span
-                  className="block border-2 border-gray-300 cursor-pointer 
-                font-semibold py-2 px-8 rounded-lg"
-                >
-                  Edit
-                </span>
-              </label>
-              {/* <button type="button">Edit</button> */}
+              <EditableImage link={image} setLink={setImage} />
             </div>
           </div>
 

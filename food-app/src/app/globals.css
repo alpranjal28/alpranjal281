@@ -29,8 +29,8 @@ label{
   @apply relative top-1 p-1 pb-0 rounded-lg
 }
 
-button {
-  @apply block w-full text-gray-800 font-semibold;
+button, .button {
+  @apply flex justify-center gap-2 w-full text-gray-800 font-semibold;
   @apply border border-gray-300 rounded-xl px-6 py-2;
 }
 

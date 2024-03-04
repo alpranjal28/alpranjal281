@@ -49,6 +49,7 @@ export default function Categories() {
       if (resp.ok) {
         setCatItem("");
         fetchCategories();
+        setEditedCat(null);
         resolve(true);
       } else {
         reject();
@@ -100,7 +101,7 @@ export default function Categories() {
                 setCatItem(c.name);
               }}
               key={c._id}
-              className="bg-gray-300 rounded-xl flex gap-2 p-2 px-4 mb-1"
+              className="rounded-xl flex gap-2 p-2 px-4 mb-1"
             >
               <span>{c.name}</span>
             </button>

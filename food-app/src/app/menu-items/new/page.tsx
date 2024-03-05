@@ -3,18 +3,15 @@ import useProfile from "@/components/UseProfile";
 import Left from "@/components/icons/Left";
 import EditableImage from "@/components/layout/EditableImage";
 import Loading from "@/components/layout/Loading";
+import MenuItemForm from "@/components/layout/MenuItemForm";
 import UserTabs from "@/components/layout/UserTabs";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import toast from "react-hot-toast";
 
 export default function NewMenuItemsPage() {
   const { loading, data } = useProfile();
-  const [image, setImage] = useState("");
-  const [name, setName] = useState("");
-  const [desc, setDesc] = useState("");
-  const [basePrice, setBasePrice] = useState("");
   const [redirectToItems, setRedirectToItems] = useState(false);
 
   if (loading) return <Loading />;
@@ -22,9 +19,20 @@ export default function NewMenuItemsPage() {
     return <h1>You are not an admin</h1>;
   }
 
-  async function handleFormSubmit(e: any) {
-    e.preventDefault();
-    const data = { image, name, desc, basePrice };
+  
+  interface MenuItemNew {
+    name: string;
+    desc: string;
+    image: string;
+    basePrice: string;
+    // _id: string;
+  }
+
+  async function handleFormSubmit(
+    ev: FormEvent<HTMLFormElement>,
+    data: MenuItemNew) {
+    ev.preventDefault();
+    // data = { image, name, desc, basePrice };
     console.log(data);
     const savingPromise = new Promise(async (resolve, reject) => {
       const resp = await fetch("/api/menu-items", {
@@ -59,40 +67,7 @@ export default function NewMenuItemsPage() {
           <Left /> Show all menu items
         </Link>
       </div>
-      <form onSubmit={handleFormSubmit} className="mt-8">
-        <div
-          className="grid items-start gap-4"
-          style={{ gridTemplateColumns: ".3fr .7fr" }}
-        >
-          <div className="max-w-[200px] max-h-[200px]">
-            <EditableImage link={image} setLink={setImage} />
-          </div>
-          <div className="grow">
-            <label htmlFor="item-name">Item name</label>
-            <input
-              type="text"
-              id="item-name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-            <label htmlFor="item-desc">Description</label>
-            <input
-              type="text"
-              id="item-desc"
-              value={desc}
-              onChange={(e) => setDesc(e.target.value)}
-            />
-            <label htmlFor="item-b-price">Base price</label>
-            <input
-              type="text"
-              id="item-b-price"
-              value={basePrice}
-              onChange={(e) => setBasePrice(e.target.value)}
-            />
-            <button type="submit">Save</button>
-          </div>
-        </div>
-      </form>
+      <MenuItemForm onSubmit={handleFormSubmit} menuItemForForm={null}/>
     </section>
   );
 }

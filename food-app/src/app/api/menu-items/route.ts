@@ -6,6 +6,7 @@ interface menuitems {
   basePrice: number;
   desc: string;
   image: string;
+  extraSizes: string[];
 }
 
 export async function POST(req: any) {

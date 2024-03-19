@@ -6,6 +6,7 @@ const menuItemsSchems = new Schema(
     desc: { type: String },
     basePrice: { type: Number, required: true },
     image: { type: String },
+    extraSizes: { type: Array },
   },
   { timestamps: true }
 );

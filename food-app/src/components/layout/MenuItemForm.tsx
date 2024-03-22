@@ -1,5 +1,7 @@
 import { useState } from "react";
 import EditableImage from "./EditableImage";
+import Plus from "../icons/Plus";
+import Trash from "../icons/Trash";
 
 interface Size {
   name: string;
@@ -51,11 +53,11 @@ export default function MenuItemForm({
   ) {
     const newValue = ev.target.value;
     console.log(newValue);
-    
+
     setSizes((prevSizes) => {
       const newSizes: Size[] = [...prevSizes];
-      newSizes[index],prop = newValue;
-      return newSizes;      
+      newSizes[index], (prop = newValue);
+      return newSizes;
     });
   }
 
@@ -104,9 +106,7 @@ export default function MenuItemForm({
 
             {sizes?.length > 0 &&
               sizes.map((size, index) => (
-                <div className="flex gap-2 items-end"
-                key={index}
-                >
+                <div className="flex gap-2 items-end" key={index}>
                   <div className="">
                     {/* <label htmlFor="extra">Size name</label> */}
                     <input
@@ -136,12 +136,13 @@ export default function MenuItemForm({
                       onClick={() => removeSize(index)}
                       className="bg-white mb-2"
                     >
-                      X
+                      <Trash />
                     </button>
                   </div>
                 </div>
               ))}
             <button type="button" onClick={addSize} className="bg-white">
+              <Plus />
               Add item size
             </button>
           </div>

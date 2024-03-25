@@ -35,7 +35,7 @@ export default function EditMenuItemPage() {
     desc: string;
     image: string;
     basePrice: string;
-    _id: string;
+    _id?: string;
   }
 
   async function handleFormSubmit(

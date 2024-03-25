@@ -1,7 +1,6 @@
 import { useState } from "react";
 import EditableImage from "./EditableImage";
-import Plus from "../icons/Plus";
-import Trash from "../icons/Trash";
+import MenuItemPriceProps from "./MenuItemPriceProps";
 
 interface Size {
   name: string;
@@ -9,12 +8,13 @@ interface Size {
   field?: string;
 }
 interface MenuItems {
+  _id?: string;
   name: string;
   desc: string;
   image: string;
   basePrice: string;
-  extraSizes?: Size;
-  // _id: string;
+  sizes?: Size[];
+  extraIngredients?: Size[];
 }
 
 interface MenuItemFormProps {
@@ -24,7 +24,8 @@ interface MenuItemFormProps {
     name: string;
     desc: string;
     basePrice: string;
-    // _id:string | null
+    sizes?: Size[];
+    extraIngredients?: Size[];
   } | null;
 }
 
@@ -36,38 +37,23 @@ export default function MenuItemForm({
   const [name, setName] = useState(menuItemForForm?.name || "");
   const [desc, setDesc] = useState(menuItemForForm?.desc || "");
   const [basePrice, setBasePrice] = useState(menuItemForForm?.basePrice || "");
-  // const _id = menuItemForForm?._id || "";
-  const [sizes, setSizes] = useState<Size[]>([]);
-
-  function addSize() {
-    setSizes((oldSizes) => {
-      return [...oldSizes, { name: "", price: 0 }];
-    });
-    return;
-  }
-
-  function editSize(
-    ev: React.ChangeEvent<HTMLInputElement>,
-    index: number,
-    prop: string
-  ) {
-    const newValue = ev.target.value;
-    console.log(newValue);
-
-    setSizes((prevSizes) => {
-      const newSizes: Size[] = [...prevSizes];
-      newSizes[index], (prop = newValue);
-      return newSizes;
-    });
-  }
-
-  function removeSize(indexToRemove: number) {
-    setSizes((prev) => prev.filter((v, index) => index !== indexToRemove));
-  }
+  const [sizes, setSizes] = useState<Size[]>(menuItemForForm?.sizes || []);
+  const [extraIngredients, setExtraIngredients] = useState<Size[]>(
+    menuItemForForm?.extraIngredients || []
+  );
 
   return (
     <form
-      onSubmit={(ev) => onSubmit(ev, { image, name, desc, basePrice })}
+      onSubmit={(ev) =>
+        onSubmit(ev, {
+          image,
+          name,
+          desc,
+          basePrice,
+          sizes,
+          extraIngredients,
+        })
+      }
       className="mt-8"
     >
       <div
@@ -100,52 +86,19 @@ export default function MenuItemForm({
             onChange={(e) => setBasePrice(e.target.value)}
           />
 
-          <div className="bg-gray-200 p-2 rounded-md mb-2">
-            <label>Sizes</label>
-            {/* <div className="">what is this</div> */}
+          <MenuItemPriceProps
+            name={"Sizzes"}
+            addLabel={"add item sizes"}
+            props={sizes}
+            setProps={setSizes}
+          />
+          <MenuItemPriceProps
+            name={"Extra ingredients"}
+            addLabel={"add extra items"}
+            props={extraIngredients}
+            setProps={setExtraIngredients}
+          />
 
-            {sizes?.length > 0 &&
-              sizes.map((size, index) => (
-                <div className="flex gap-2 items-end" key={index}>
-                  <div className="">
-                    {/* <label htmlFor="extra">Size name</label> */}
-                    <input
-                      type="text"
-                      id="extra"
-                      placeholder="Size name"
-                      value={size["name"]} //
-                      onChange={(ev) => editSize(ev, index, "name")}
-                    />
-                  </div>
-
-                  <div className="">
-                    {/* <label htmlFor="extras">Price</label> */}
-                    <input
-                      type="number"
-                      id="extras"
-                      placeholder="Extra price"
-                      value={size["price"]} //
-                      onChange={(ev) => editSize(ev, index, "price")}
-                    />
-                  </div>
-
-                  {/* REMOVE SIZE */}
-                  <div className="">
-                    <button
-                      type="button"
-                      onClick={() => removeSize(index)}
-                      className="bg-white mb-2"
-                    >
-                      <Trash />
-                    </button>
-                  </div>
-                </div>
-              ))}
-            <button type="button" onClick={addSize} className="bg-white">
-              <Plus />
-              Add item size
-            </button>
-          </div>
           <button type="submit">Save</button>
         </div>
       </div>

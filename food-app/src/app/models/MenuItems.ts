@@ -1,16 +1,22 @@
 import mongoose, { Schema } from "mongoose";
 
-const menuItemsSchems = new Schema(
+const ExtraPriceSchema = new Schema({
+  name: { type: String, required: true },
+  price: { type: Number, required: true },
+});
+
+const MenuItemsSchems = new Schema(
   {
     name: { type: String, required: true },
     desc: { type: String },
     basePrice: { type: Number, required: true },
     image: { type: String },
-    extraSizes: { type: Array },
+    sizes: { type: [ExtraPriceSchema] },
+    extraIngredients: { type: [ExtraPriceSchema] },
   },
   { timestamps: true }
 );
 
 export const MenuItems =
   mongoose.models?.MenuItems ||
-  mongoose.model("MenuItems", menuItemsSchems, "menu-items");
+  mongoose.model("MenuItems", MenuItemsSchems, "menu-items");

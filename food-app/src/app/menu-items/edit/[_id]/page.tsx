@@ -1,4 +1,5 @@
 "use client";
+import DeleteButton from "@/components/DeleteButton";
 import useProfile from "@/components/UseProfile";
 import Left from "@/components/icons/Left";
 import EditableImage from "@/components/layout/EditableImage";
@@ -6,7 +7,7 @@ import Loading from "@/components/layout/Loading";
 import MenuItemForm from "@/components/layout/MenuItemForm";
 import UserTabs from "@/components/layout/UserTabs";
 import Link from "next/link";
-import { redirect, useParams, usePathname } from "next/navigation";
+import { redirect, useParams } from "next/navigation";
 import { FormEvent, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -24,15 +25,6 @@ export default function EditMenuItemPage() {
       });
     });
   }, []);
-
-
-
-
-
-  if (loading) return <Loading />;
-  if (!data) {
-    return <h1>You are not an admin</h1>;
-  }
 
   interface MenuItem {
     name: string;
@@ -71,10 +63,35 @@ export default function EditMenuItemPage() {
     setRedirectToItems(true);
   }
 
+  function HandleDelete() {
+    const deletingPromise = new Promise(async (resolve, reject) => {
+      const resp = await fetch("/api/menu-items", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ _id: _id }),
+      });
+      if (resp.ok) {
+        resolve(resp);
+      }
+      if (!resp.ok) {
+        reject(resp);
+      }
+    });
+    toast.promise(deletingPromise, {
+      loading: "Deleting...",
+      success: "Item deleted!",
+      error: "Error deleting item!",
+    });
+    setRedirectToItems(true);
+    redirect("/menu-items");
+  }
 
-
-
-  
+  if (loading) return <Loading />;
+  if (!data) {
+    return <h1>You are not an admin</h1>;
+  }
   if (redirectToItems) {
     return redirect("/menu-items");
   }
@@ -88,19 +105,10 @@ export default function EditMenuItemPage() {
         </Link>
       </div>
       <MenuItemForm onSubmit={handleFormSubmit} menuItemForForm={menuItem} />
-      <div className="mt-2 max-w-sm ml-auto">
-        <button
-          type="button"
-          className={
-            usePathname().slice(0, 17) === "/menu-items/edit/"
-              ? "block"
-              : "hidden"
-          }
-          // onClick={() => {
-          //   handleDelete();
-          // }}
-        >
-          Delete this menu item
+      <DeleteButton label={"Delete menu item"}/>
+      <div className="">
+        <button type="button" onClick={HandleDelete}>
+          Delete
         </button>
       </div>
     </section>

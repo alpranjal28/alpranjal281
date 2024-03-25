@@ -1,5 +1,7 @@
 "use client";
 import useProfile from "@/components/UseProfile";
+import PencilSquare from "@/components/icons/PencilSquare";
+import Trash from "@/components/icons/Trash";
 import Loading from "@/components/layout/Loading";
 import UserTabs from "@/components/layout/UserTabs";
 import { useEffect, useState } from "react";
@@ -27,11 +29,6 @@ export default function Categories() {
   useEffect(() => {
     fetchCategories();
   }, []);
-
-  if (profileLoading) {
-    return <Loading />;
-  }
-  if (!profileData) return <div>Not an admin</div>;
 
   async function handleCatSubmit(ev: React.FormEvent) {
     ev.preventDefault();
@@ -62,6 +59,34 @@ export default function Categories() {
     });
   }
 
+  async function handleDeleteCat(_id: string) {
+    // console.log(_id);
+    const deletePromise = new Promise(async (resolve, reject) => {
+      const resp = await fetch("/api/categories", {
+        method: "DELETE",
+        headers: { "content-Type": "application/json" },
+        body: JSON.stringify({ _id }),
+      });
+      if (resp.ok) {
+        resolve(true);
+      } else {
+        reject();
+      }
+    });
+
+    await toast.promise(deletePromise, {
+      loading: "Deleting category...",
+      success: "Category deleted!",
+      error: "Error deleting category",
+    });
+    fetchCategories();
+  }
+
+  if (profileLoading) {
+    return <Loading />;
+  }
+  if (!profileData) return <div>Not an admin</div>;
+
   return (
     <section className="mt-8 max-w-lg mx-auto">
       <UserTabs isAdmin={true} />
@@ -75,7 +100,7 @@ export default function Categories() {
               </>
             )}
           </label>
-          <div className="flex gap-2 items-center justify-center relative">
+          <div className="flex gap-2 items-center justify-center relative ">
             <input
               type="text"
               className=" grow"
@@ -85,26 +110,55 @@ export default function Categories() {
             <button type="submit" className="relative -top-1 max-w-32">
               {editedCat ? "Save" : "Create"}
             </button>
+            <button
+              type="button"
+              className="relative -top-1 max-w-32"
+              onClick={() => {
+                setEditedCat(null);
+                setCatItem("");
+              }}
+            >
+              Cancel
+            </button>
           </div>
         </div>
       </form>
 
       <div className="">
         <h2 className="mt-8 text-sm relative left-4 text-gray-500">
-          Edit category
+          Existing category
         </h2>
         {categories?.length > 0 &&
           categories.map((c) => (
-            <button
-              onClick={() => {
-                setEditedCat(c);
-                setCatItem(c.name);
-              }}
+            <div
               key={c._id}
-              className="rounded-xl flex gap-2 p-2 px-4 mb-1"
+              className=" bg-gray-200 rounded-xl flex gap-2 p-2 px-4 mb-1 justify-between items-center"
             >
-              <span>{c.name}</span>
-            </button>
+              <span className="">{c.name}</span>
+
+              {/* BUTTONS */}
+              <span className="inline-flex gap-1 ">
+                <button
+                  type="button"
+                  className="p-1 mx-2 border-0 hover:bg-gray-500 transition-all"
+                  onClick={() => {
+                    setEditedCat(c);
+                    setCatItem(c.name);
+                  }}
+                >
+                  <PencilSquare />
+                </button>
+                <button
+                  type="button"
+                  className="p-1 mx-2  border-0  hover:bg-gray-500 transition-all"
+                  onClick={() => {
+                    handleDeleteCat(c._id);
+                  }}
+                >
+                  <Trash />
+                </button>
+              </span>
+            </div>
           ))}
       </div>
     </section>

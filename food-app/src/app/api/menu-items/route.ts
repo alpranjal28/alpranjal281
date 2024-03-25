@@ -28,3 +28,10 @@ export async function GET() {
   const menuItems = await MenuItems.find();
   return Response.json(menuItems);
 }
+
+export async function DELETE(req: any) {
+  mongoose.connect(process.env.MONGO_URL as string);
+  const { _id } = await req.json();
+  await MenuItems.findByIdAndDelete(_id);
+  return Response.json(true);
+}

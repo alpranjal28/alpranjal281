@@ -1,6 +1,8 @@
-import { useState } from "react";
 import Trash from "../icons/Trash";
 import Plus from "../icons/Plus";
+import ChevronUp from "../icons/ChevronUp";
+import { useState } from "react";
+import ChevronDown from "../icons/ChevronDown";
 
 interface Size {
   name: string;
@@ -20,6 +22,7 @@ export default function MenuItemPriceProps({
   setProps: any;
 }) {
   // const [sizes, setProps] = useState<Size[]>([]);
+  const [toggle, setToggle] = useState(false);
 
   function addProps() {
     setProps((oldProps: any) => {
@@ -50,50 +53,61 @@ export default function MenuItemPriceProps({
 
   return (
     <div className="bg-gray-200 p-2 rounded-md mb-2">
-      <label>{name}</label>
-      {/* <div className="">what is this</div> */}
+      <div className="">
+        <button
+          className="justify-start p-1 border-0"
+          type="button"
+          onClick={() => setToggle(!toggle)}
+        >
+          {toggle ? <ChevronUp /> : <ChevronDown />}
+          <span>{name}</span>
+          <span>({props.length})</span>
+        </button>
+      </div>
 
-      {props?.length > 0 &&
-        props.map((size: any, index: any) => (
-          <div className="flex gap-2 items-end" key={index}>
-            <div className="">
-              <label htmlFor="extra">Name</label>
-              <input
-                type="text"
-                id="extra"
-                placeholder="Size name"
-                value={size["name"]} //
-                onChange={(ev) => editProps(ev, index, "name")}
-              />
-            </div>
+      <div className={toggle ? "block" : "hidden"}>
+        {props?.length > 0 &&
+          props.map((size: any, index: any) => (
+            <div className="flex gap-2 items-end" key={index}>
+              <div className="">
+                <label htmlFor="extra">Name</label>
+                <input
+                  type="text"
+                  id="extra"
+                  placeholder="Size name"
+                  value={size["name"]} //
+                  onChange={(ev) => editProps(ev, index, "name")}
+                />
+              </div>
 
-            <div className="">
-              <label htmlFor="extras">Price</label>
-              <input
-                type="number"
-                id="extras"
-                placeholder="Extra price"
-                value={size["price"]} //
-                onChange={(ev) => editProps(ev, index, "price")}
-              />
-            </div>
+              <div className="">
+                <label htmlFor="extras">Price</label>
+                <input
+                  type="number"
+                  id="extras"
+                  placeholder="Extra price"
+                  value={size["price"]} //
+                  onChange={(ev) => editProps(ev, index, "price")}
+                />
+              </div>
 
-            {/* REMOVE SIZE */}
-            <div className="">
-              <button
-                type="button"
-                onClick={() => removeProp(index)}
-                className="bg-white mb-2"
-              >
-                <Trash />
-              </button>
+              {/* REMOVE SIZE */}
+              <div className="">
+                <button
+                  type="button"
+                  onClick={() => removeProp(index)}
+                  className="bg-white mb-2"
+                >
+                  <Trash />
+                </button>
+              </div>
             </div>
-          </div>
-        ))}
-      <button type="button" onClick={addProps} className="bg-white">
-        <Plus />
-        {addLabel}
-      </button>
+          ))}
+        <button type="button" onClick={addProps} className="bg-white">
+          <Plus />
+          {addLabel}
+        </button>
+      </div>
     </div>
   );
 }

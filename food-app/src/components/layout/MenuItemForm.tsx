@@ -1,6 +1,7 @@
 import { useState } from "react";
 import EditableImage from "./EditableImage";
 import MenuItemPriceProps from "./MenuItemPriceProps";
+import { usePathname } from "next/navigation";
 
 interface Size {
   name: string;
@@ -20,6 +21,7 @@ interface MenuItems {
 interface MenuItemFormProps {
   onSubmit: (ev: React.FormEvent<HTMLFormElement>, data: MenuItems) => void;
   menuItemForForm: {
+    _id?: string;
     image: string;
     name: string;
     desc: string;
@@ -33,6 +35,7 @@ export default function MenuItemForm({
   onSubmit,
   menuItemForForm,
 }: MenuItemFormProps) {
+  const [id, setId] = useState(menuItemForForm?._id || "");
   const [image, setImage] = useState(menuItemForForm?.image || "");
   const [name, setName] = useState(menuItemForForm?.name || "");
   const [desc, setDesc] = useState(menuItemForForm?.desc || "");
@@ -54,7 +57,7 @@ export default function MenuItemForm({
           extraIngredients,
         })
       }
-      className="mt-8"
+      className="mt-8 mb-4"
     >
       <div
         className="grid items-start gap-4"
@@ -87,7 +90,7 @@ export default function MenuItemForm({
           />
 
           <MenuItemPriceProps
-            name={"Sizzes"}
+            name={"Sizes"}
             addLabel={"add item sizes"}
             props={sizes}
             setProps={setSizes}

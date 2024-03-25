@@ -6,7 +6,7 @@ import Loading from "@/components/layout/Loading";
 import MenuItemForm from "@/components/layout/MenuItemForm";
 import UserTabs from "@/components/layout/UserTabs";
 import Link from "next/link";
-import { redirect, useParams } from "next/navigation";
+import { redirect, useParams, usePathname } from "next/navigation";
 import { FormEvent, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -24,6 +24,10 @@ export default function EditMenuItemPage() {
       });
     });
   }, []);
+
+
+
+
 
   if (loading) return <Loading />;
   if (!data) {
@@ -66,6 +70,11 @@ export default function EditMenuItemPage() {
     });
     setRedirectToItems(true);
   }
+
+
+
+
+  
   if (redirectToItems) {
     return redirect("/menu-items");
   }
@@ -79,6 +88,21 @@ export default function EditMenuItemPage() {
         </Link>
       </div>
       <MenuItemForm onSubmit={handleFormSubmit} menuItemForForm={menuItem} />
+      <div className="mt-2 max-w-sm ml-auto">
+        <button
+          type="button"
+          className={
+            usePathname().slice(0, 17) === "/menu-items/edit/"
+              ? "block"
+              : "hidden"
+          }
+          // onClick={() => {
+          //   handleDelete();
+          // }}
+        >
+          Delete this menu item
+        </button>
+      </div>
     </section>
   );
 }

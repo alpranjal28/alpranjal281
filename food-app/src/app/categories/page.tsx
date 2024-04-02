@@ -1,4 +1,5 @@
 "use client";
+import DeleteButton from "@/components/DeleteButton";
 import useProfile from "@/components/UseProfile";
 import PencilSquare from "@/components/icons/PencilSquare";
 import Trash from "@/components/icons/Trash";
@@ -157,6 +158,7 @@ export default function Categories() {
                 >
                   <Trash />
                 </button>
+                <DeleteButton label="Delete" onDelete={()=>handleDeleteCat(c._id)}/>
               </span>
             </div>
           ))}

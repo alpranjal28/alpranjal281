@@ -105,7 +105,7 @@ export default function EditMenuItemPage() {
         </Link>
       </div>
       <MenuItemForm onSubmit={handleFormSubmit} menuItemForForm={menuItem} />
-      <DeleteButton 
+      <DeleteButton
         label={"Delete menu item"}
         onDelete={HandleDelete}
       />

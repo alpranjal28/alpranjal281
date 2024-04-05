@@ -60,7 +60,7 @@ export default function NewMenuItemsPage() {
     return redirect("/menu-items");
   }
   return (
-    <section className="mt-8 max-w-lg mx-auto">
+    <section className="mt-8 max-w-2xl mx-auto">
       <UserTabs isAdmin={true} />
       <div className="">
         <Link className="button" href={"/menu-items"}>

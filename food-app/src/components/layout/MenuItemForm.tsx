@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import EditableImage from "./EditableImage";
 import MenuItemPriceProps from "./MenuItemPriceProps";
 import { usePathname } from "next/navigation";
@@ -12,6 +12,7 @@ interface MenuItems {
   _id?: string;
   name: string;
   desc: string;
+  category: string;
   image: string;
   basePrice: string;
   sizes?: Size[];
@@ -25,6 +26,7 @@ interface MenuItemFormProps {
     image: string;
     name: string;
     desc: string;
+    category: any;
     basePrice: string;
     sizes?: Size[];
     extraIngredients?: Size[];
@@ -41,9 +43,21 @@ export default function MenuItemForm({
   const [desc, setDesc] = useState(menuItemForForm?.desc || "");
   const [basePrice, setBasePrice] = useState(menuItemForForm?.basePrice || "");
   const [sizes, setSizes] = useState<Size[]>(menuItemForForm?.sizes || []);
+
+  const [category, setCategory] = useState(menuItemForForm?.category || "");
+  const [categories, setCategories] = useState<[]>([]);
   const [extraIngredients, setExtraIngredients] = useState<Size[]>(
     menuItemForForm?.extraIngredients || []
   );
+
+  useEffect(() => {
+    fetch("/api/categories").then((res) => {
+      res.json().then((categories) => {
+        setCategories(categories);
+      });
+    });
+    console.log(categories);
+  }, []);
 
   return (
     <form
@@ -52,12 +66,13 @@ export default function MenuItemForm({
           image,
           name,
           desc,
+          category,
           basePrice,
           sizes,
           extraIngredients,
         })
       }
-      className="mt-8 mb-4"
+      className="mt-8 mb-4 max-w-2xl"
     >
       <div
         className="grid items-start gap-4"
@@ -74,6 +89,7 @@ export default function MenuItemForm({
             value={name}
             onChange={(ev) => setName(ev.target.value)}
           />
+
           <label htmlFor="item-desc">Description</label>
           <input
             type="text"
@@ -81,6 +97,20 @@ export default function MenuItemForm({
             value={desc}
             onChange={(e) => setDesc(e.target.value)}
           />
+
+          <label htmlFor="item-cat">Categories</label>
+          <select
+            name=""
+            id="item-cat"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          >
+            {categories?.length > 0 &&
+              categories.map((c) => (
+                <option value={c!["_id"]}>{c!["name"]}</option>
+              ))}
+          </select>
+
           <label htmlFor="item-b-price">Base price</label>
           <input
             type="text"

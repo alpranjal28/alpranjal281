@@ -89,7 +89,7 @@ export default function Categories() {
   if (!profileData) return <div>Not an admin</div>;
 
   return (
-    <section className="mt-8 max-w-lg mx-auto">
+    <section className="mt-8 max-w-2xl mx-auto">
       <UserTabs isAdmin={true} />
       <form onSubmit={handleCatSubmit}>
         <div>
@@ -158,7 +158,7 @@ export default function Categories() {
                 >
                   <Trash />
                 </button>
-                <DeleteButton label="Delete" onDelete={()=>handleDeleteCat(c._id)}/>
+                <DeleteButton itemLabel={c.name} onDelete={()=>handleDeleteCat(c._id)}/>
               </span>
             </div>
           ))}

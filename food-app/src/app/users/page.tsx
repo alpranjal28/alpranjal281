@@ -2,6 +2,7 @@
 import useProfile from "@/components/UseProfile";
 import Loading from "@/components/layout/Loading";
 import UserTabs from "@/components/layout/UserTabs";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function UsersPage() {
@@ -28,15 +29,19 @@ export default function UsersPage() {
         {users?.length > 0 &&
           users.map((user) => (
             <div
-              className="bg-gray-200 rounded-lg mb-2 items-center p-4 gap-4"
+              className="bg-gray-200 rounded-lg flex mb-2 items-center p-4 gap-4"
               key={user[`_id`]}
             >
-              <div className="">
-                <span>{[user[`name`]]}</span>
-                <span>{[user[`email`]]}</span>
+              <div className=" grid grid-cols-2 md:grid-cols-3 gap-4 grow">
+                <span className="text-gray-900 font-medium">
+                  {[user[`name`] || <i>No name</i>]}
+                </span>
+                <span className="text-gray-500">{[user[`email`]]}</span>
               </div>
               <div className="">
-                <button >Edit</button>
+                <Link className="button" href={`/users/${user[`_id`]}`}>
+                  Edit
+                </Link>
               </div>
             </div>
           ))}

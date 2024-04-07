@@ -1,11 +1,26 @@
 "use client";
 import EditableImage from "@/components/layout/EditableImage";
 import Loading from "@/components/layout/Loading";
+import UserForm from "@/components/layout/UserForm";
 import UserTabs from "@/components/layout/UserTabs";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+
+
+interface User {
+  _id?: string;
+  userName: string;
+  userEmail: string;
+  phone: number;
+  address: string;
+  city: string;
+  postalCode: number;
+  country: string;
+  image: string;
+}
+
 
 export default function ProfilePage() {
   const session = useSession();
@@ -21,6 +36,8 @@ export default function ProfilePage() {
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const [profileFetched, setProfileFetched] = useState(false);
   // const userEmail = session.data?.user?.email;
+
+  const [user,setUser]=useState<User>()
 
   async function handleProfileInfoUpdate(ev: any) {
     ev.preventDefault();
@@ -61,6 +78,7 @@ export default function ProfilePage() {
           setCountry(data.country);
           setUserName(data.name);
           setImage(data.image);
+          setUser(data);
           setIsAdmin(data.admin);
           setUserEmail(data.email);
           setProfileFetched(true);
@@ -159,6 +177,7 @@ export default function ProfilePage() {
             <button type="submit">Save</button>
           </form>
         </div>
+        {/* <UserForm user={user}/> */}
       </div>
     </section>
   );

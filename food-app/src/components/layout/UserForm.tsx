@@ -1,55 +1,39 @@
 "use client";
 import { useState } from "react";
 import EditableImage from "./EditableImage";
-import toast from "react-hot-toast";
+import useProfile from "../UseProfile";
 
 interface User {
   _id?: string;
-  userName: string;
-  userEmail: string;
+  name: string;
+  email: string;
   phone: number;
   address: string;
   city: string;
   postalCode: number;
   country: string;
   image: string;
+  admin: boolean;
 }
 
-export default function UserForm({ user }: { user: User}) {
-  const [userName, setUserName] = useState<string>(user?.userName || "");
-  const [userEmail, setUserEmail] = useState<string>(user?.userEmail || "");
+export default function UserForm({
+  user,
+  onSave,
+}: {
+  user: User;
+  onSave: (ev: any, data: any) => Promise<void>;
+}) {
+  const { data: loggedInUserData } = useProfile();
+  const [userName, setUserName] = useState<string>(user?.name || "");
+  const [userEmail, setUserEmail] = useState<string>(user?.email || "");
   const [phone, setPhone] = useState<number>(user?.phone);
   const [address, setAddress] = useState<string>(user?.address || "");
   const [city, setCity] = useState<string>(user?.city || "");
   const [postalCode, setPostalCode] = useState<number>(user?.postalCode);
   const [country, setCountry] = useState<string>(user?.country || "");
   const [image, setImage] = useState<string>(user?.image || "");
-
-  async function handleProfileInfoUpdate(ev: any) {
-    ev.preventDefault();
-    const savingPromise = new Promise(async (resolve, reject) => {
-      const resp = await fetch("/api/profile", {
-        method: "PUT",
-        headers: { "content-Type": "application/json" },
-        body: JSON.stringify({
-          name: userName,
-          image,
-          phone,
-          address,
-          city,
-          postalCode,
-          country,
-        }),
-      });
-      resolve(resp);
-      reject(resp);
-    });
-    toast.promise(savingPromise, {
-      loading: "Saving...",
-      success: "Profile saved!",
-      error: "Error saving profile!",
-    });
-  }
+  const [admin, setAdmin] = useState<boolean>(user?.admin || false);
+  console.log("logged in data", loggedInUserData);
 
   return (
     <div className="flex justify-center gap-6">
@@ -59,7 +43,22 @@ export default function UserForm({ user }: { user: User}) {
         </div>
       </div>
 
-      <form className="grow" onSubmit={handleProfileInfoUpdate}>
+      <form
+        className="grow"
+        onSubmit={(e) =>
+          onSave(e, {
+            name: userName,
+            email: userEmail,
+            phone,
+            address,
+            city,
+            postalCode,
+            country,
+            image,
+            admin,
+          })
+        }
+      >
         <label htmlFor="name">Name</label>
         <input
           id="name"
@@ -72,11 +71,11 @@ export default function UserForm({ user }: { user: User}) {
         <input
           id="email"
           type="email"
-          value={`${userEmail}`}
+          value={user.email}
           placeholder="email"
           disabled
         />
-        <label htmlFor="number">Number</label>
+        <label htmlFor="number">Phone number</label>
         <input
           id="number"
           type="number"
@@ -93,7 +92,7 @@ export default function UserForm({ user }: { user: User}) {
           onChange={(ev) => setAddress(ev.target.value)}
         />
         <div className="flex gap-2">
-          <div className="">
+          <div className="grow">
             <label htmlFor="city">City</label>
             <input
               id="city"
@@ -124,6 +123,25 @@ export default function UserForm({ user }: { user: User}) {
           value={`${country}`}
           onChange={(ev) => setCountry(ev.target.value)}
         />
+        {/* ADMIN */}
+        {loggedInUserData && (
+          <div className="">
+            <label
+              htmlFor="adminCheckbox"
+              className="p-2 font-semibold font inline-flex -top-1 gap-2 m-2"
+            >
+              <input
+                type="checkbox"
+                name=""
+                id="adminCheckbox"
+                checked={admin}
+                onChange={(e) => setAdmin(!admin)}
+                // onClick={(e) => setAdmin(!admin)}
+              />
+              <span>Admin</span>
+            </label>
+          </div>
+        )}
         <button type="submit">Save</button>
       </form>
     </div>

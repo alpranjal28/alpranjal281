@@ -2,6 +2,7 @@ import mongoose, { Schema, model } from "mongoose";
 
 const UserInfoSchema = new Schema(
   {
+    name: { type: String, required: true },
     email: { type: String, required: true },
     address: { type: String },
     city: { type: String },

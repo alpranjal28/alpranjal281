@@ -8,11 +8,10 @@ import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
-
 interface User {
   _id?: string;
-  userName: string;
-  userEmail: string;
+  name: string;
+  email: string;
   phone: number;
   address: string;
   city: string;
@@ -21,40 +20,30 @@ interface User {
   image: string;
 }
 
-
 export default function ProfilePage() {
   const session = useSession();
   const { status } = session;
-  const [userName, setUserName] = useState<string>("");
-  const [userEmail, setUserEmail] = useState<string>("");
-  const [phone, setPhone] = useState<number>();
-  const [address, setAddress] = useState<string>("");
-  const [city, setCity] = useState<string>("");
-  const [postalCode, setPostalCode] = useState<number>();
-  const [country, setCountry] = useState<string>("");
-  const [image, setImage] = useState<string>("");
+  // const [userName, setUserName] = useState<string>("");
+  // const [userEmail, setUserEmail] = useState<string>("");
+  // const [phone, setPhone] = useState<number>();
+  // const [address, setAddress] = useState<string>("");
+  // const [city, setCity] = useState<string>("");
+  // const [postalCode, setPostalCode] = useState<number>();
+  // const [country, setCountry] = useState<string>("");
+  // const [image, setImage] = useState<string>("");
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const [profileFetched, setProfileFetched] = useState(false);
   // const userEmail = session.data?.user?.email;
 
-  const [user,setUser]=useState<User>()
+  const [user, setUser] = useState<User>();
 
-  async function handleProfileInfoUpdate(ev: any) {
+  async function handleProfileInfoUpdate(ev: any, data: any) {
     ev.preventDefault();
-
     const savingPromise = new Promise(async (resolve, reject) => {
       const resp = await fetch("/api/profile", {
         method: "PUT",
         headers: { "content-Type": "application/json" },
-        body: JSON.stringify({
-          name: userName,
-          image,
-          phone,
-          address,
-          city,
-          postalCode,
-          country,
-        }),
+        body: JSON.stringify(data),
       });
       resolve(resp);
       reject(resp);
@@ -71,16 +60,16 @@ export default function ProfilePage() {
       fetch("/api/profile").then(async (resp) => {
         if (resp.ok) {
           const data = await resp.json();
-          setPhone(data.phone);
-          setAddress(data.address);
-          setCity(data.city);
-          setPostalCode(data.postalCode);
-          setCountry(data.country);
-          setUserName(data.name);
-          setImage(data.image);
+          // setPhone(data.phone);
+          // setAddress(data.address);
+          // setCity(data.city);
+          // setPostalCode(data.postalCode);
+          // setCountry(data.country);
+          // setUserName(data.name);
+          // setImage(data.image);
           setUser(data);
           setIsAdmin(data.admin);
-          setUserEmail(data.email);
+          // setUserEmail(data.email);
           setProfileFetched(true);
         }
       });
@@ -102,82 +91,7 @@ export default function ProfilePage() {
         Profile
       </h1> */}
       <div className=" max-w-2xl mx-auto">
-        <div className="flex justify-center gap-6">
-          <div className="">
-            <div className="p-1 rounded-lg text-center">
-              <EditableImage link={image} setLink={setImage} />
-            </div>
-          </div>
-
-          <form className="grow" onSubmit={handleProfileInfoUpdate}>
-            <label htmlFor="name">Name</label>
-            <input
-              id="name"
-              type="text"
-              placeholder="First and last name"
-              value={`${userName}`}
-              onChange={(ev) => setUserName(ev.target.value)}
-            />
-            <label htmlFor="email">Email</label>
-            <input
-              id="email"
-              type="email"
-              value={`${userEmail}`}
-              placeholder="email"
-              disabled
-            />
-            <label htmlFor="number">Number</label>
-            <input
-              id="number"
-              type="number"
-              placeholder="phone number"
-              value={`${phone}`}
-              onChange={(ev) => setPhone(ev.target.valueAsNumber)}
-            />
-            <label htmlFor="address">Street address</label>
-            <input
-              id="address"
-              type="text"
-              placeholder="street address"
-              value={`${address}`}
-              onChange={(ev) => setAddress(ev.target.value)}
-            />
-            <div className="flex gap-2">
-              <div className="">
-                <label htmlFor="city">City</label>
-                <input
-                  id="city"
-                  style={{ margin: 0 }}
-                  type="text"
-                  placeholder="city"
-                  value={`${city}`}
-                  onChange={(ev) => setCity(ev.target.value)}
-                />
-              </div>
-              <div className="">
-                <label htmlFor="postalCode">Postal code</label>
-                <input
-                  id="postalCode"
-                  style={{ margin: 0 }}
-                  type="number"
-                  placeholder="postal code"
-                  value={`${postalCode}`}
-                  onChange={(ev) => setPostalCode(ev.target.valueAsNumber)}
-                />
-              </div>
-            </div>
-            <label htmlFor="country">Country</label>
-            <input
-              id="country"
-              type="text"
-              placeholder="country"
-              value={`${country}`}
-              onChange={(ev) => setCountry(ev.target.value)}
-            />
-            <button type="submit">Save</button>
-          </form>
-        </div>
-        {/* <UserForm user={user}/> */}
+        <UserForm user={user!} onSave={handleProfileInfoUpdate} />
       </div>
     </section>
   );

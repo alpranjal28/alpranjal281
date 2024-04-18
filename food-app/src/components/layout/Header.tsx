@@ -20,7 +20,7 @@ const Header = () => {
           THE ROllS DIARY
         </Link>
         <Link href={"/"}>HOME</Link>
-        <Link href={""}>MENU</Link>
+        <Link href={"/menu"}>MENU</Link>
         <Link href={""}>ABOUT</Link>
         <Link href={""}>CONTACT</Link>
       </nav>

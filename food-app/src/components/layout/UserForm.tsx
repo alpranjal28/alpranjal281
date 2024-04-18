@@ -33,7 +33,6 @@ export default function UserForm({
   const [country, setCountry] = useState<string>(user?.country || "");
   const [image, setImage] = useState<string>(user?.image || "");
   const [admin, setAdmin] = useState<boolean>(user?.admin || false);
-  console.log("logged in data", loggedInUserData);
 
   return (
     <div className="flex justify-center gap-6">

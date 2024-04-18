@@ -94,6 +94,8 @@ export default function MenuItemForm({
           <input
             type="text"
             id="item-desc"
+            minLength={60}
+            maxLength={120}
             value={desc}
             onChange={(e) => setDesc(e.target.value)}
           />

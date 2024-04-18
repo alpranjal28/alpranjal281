@@ -1,5 +1,7 @@
 "use client";
 import useProfile from "@/components/UseProfile";
+import MenuCard from "@/components/card/MenuCard";
+import MenuCardAdmin from "@/components/card/MenuCardAdmin";
 import Right from "@/components/icons/Right";
 import Loading from "@/components/layout/Loading";
 import UserTabs from "@/components/layout/UserTabs";
@@ -11,8 +13,8 @@ export default function MenuItemsPage() {
   interface MenuItem {
     _id: string;
     name: string;
-    description: string;
-    price: number;
+    desc: string;
+    basePrice: number;
     image: string;
   }
 
@@ -47,20 +49,7 @@ export default function MenuItemsPage() {
         <div className="grid grid-cols-3 gap-4">
           {menuItems?.length > 0 &&
             menuItems.map((item) => (
-              <Link
-                href={"/menu-items/edit/" + item._id}
-                className=" bg-gray-300 rounded-lg p-4"
-                key={item._id}
-              >
-                <div className="relative ">
-                  <Image 
-                  className=" rounded-md"
-                  src={item.image} alt="" width={200} height={200} />
-                </div>
-                <div className=" text-center">
-                {item?.name}
-                </div>
-              </Link>
+              <MenuCardAdmin {...item}/>
             ))}
         </div>
       </div>

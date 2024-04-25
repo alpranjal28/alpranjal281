@@ -25,7 +25,7 @@ input[type="tel"]:disabled {
 }
 
 label{
-  @apply text-gray-500 text-sm ml-2 ;
+  @apply text-gray-600 text-sm ml-2 ;
   @apply relative top-1 p-1 pb-0 rounded-lg
 }
 

@@ -18,6 +18,7 @@ interface User {
   postalCode: number;
   country: string;
   image: string;
+  admin: boolean;
 }
 
 export default function ProfilePage() {

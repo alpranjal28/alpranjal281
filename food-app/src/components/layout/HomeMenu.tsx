@@ -19,15 +19,15 @@ export default function HomeMenu() {
   }, []);
   return (
     <section className="">
-      <div className="grid grid-cols-3 container">
+      <div className=" relative grid grid-cols-3 -top-8">
         {/* left lettuce image */}
-        <div className="relative top-8 -z-10 flex justify-start">
+        <div className="relative -top-8 -z-10 flex justify-start">
           <Image src="/sallad1.png" alt="salad" width={109} height={189} />
         </div>
         {/* menu heading */}
         <SectionHeader subHeader="Check our" mainHeader="Best sellers" />
         {/* right lettuce image */}
-        <div className="relative top-8 -z-10 flex justify-end">
+        <div className="relative top-16 -z-10 flex justify-end">
           <Image src="/sallad2.png" alt="salad" width={109} height={189} />
         </div>
       </div>

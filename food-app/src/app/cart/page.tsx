@@ -1,6 +1,7 @@
 "use client";
 import { CartContext, cartProductPrice } from "@/components/AppContext";
 import useProfile from "@/components/UseProfile";
+import EmptyCart from "@/components/icons/EmptyCart";
 import Trash from "@/components/icons/Trash";
 import AddressInputs from "@/components/layout/AddressInputs";
 import SectionHeader from "@/components/layout/SectionHeader";
@@ -36,8 +37,22 @@ export default function CartPage() {
   } ///
 
   let totalPrice = 0;
+  let deliveryPrice = 50;
   for (let product in cartProducts) {
     totalPrice += cartProductPrice(cartProducts[product]);
+  }
+
+  if (cartProducts?.length === 0) {
+    return (
+      <section>
+        <div className="">
+          <SectionHeader mainHeader="Cart" subHeader="" />
+        </div>
+
+        <div className="text-center mt-8 font-semibold">No products in your shopping cart</div>
+        <div className=""><EmptyCart/></div>
+      </section>
+    );
   }
 
   return (
@@ -104,9 +119,18 @@ export default function CartPage() {
                 </div>
               </div>
             ))}
-          <div className=" text-lg p-4 pr-14 text-right">
-            <span className="text-gray-500">Subtotal :</span>
-            <span className="font-semibold">₹{totalPrice}/-</span>
+          <div className=" text-lg pt-4 pr-14 flex justify-end">
+            <div className="text-gray-500 ">
+              Subtotal :&nbsp;
+              <br />
+              Delivery :&nbsp;
+              <br />
+              Total :
+            </div>
+            <div className="font-semibold">
+              ₹{totalPrice}/- <br />₹{deliveryPrice}/- <br />₹
+              {deliveryPrice + totalPrice}/- <br />
+            </div>
           </div>
         </div>
 
@@ -116,9 +140,9 @@ export default function CartPage() {
             <form action="">
               <AddressInputs
                 addressProps={profileData}
-                setAddressProps={()=>handleAddressChange}
+                setAddressProps={() => handleAddressChange}
               />
-              <button type="submit">Pay ₹{totalPrice}</button>
+              <button type="submit">Pay ₹{totalPrice + deliveryPrice}</button>
             </form>
           </div>
         </div>

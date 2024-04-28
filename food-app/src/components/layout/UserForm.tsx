@@ -1,7 +1,8 @@
 "use client";
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 import EditableImage from "./EditableImage";
 import useProfile from "../UseProfile";
+import AddressInputs from "./AddressInputs";
 
 interface User {
   _id?: string;
@@ -33,6 +34,31 @@ export default function UserForm({
   const [country, setCountry] = useState<string>(user?.country || "");
   const [image, setImage] = useState<string>(user?.image || "");
   const [admin, setAdmin] = useState<boolean>(user?.admin || false);
+
+
+  // ChangeEvent<HTMLInputElement>.target: EventTarget & HTMLInputElement
+  // write an interface for value which can be either string or number for setstateaction
+
+
+  
+
+  function handleAddressChange(propName:string,value:React.SetStateAction<any>){
+    if(propName === "phone"){
+      setPhone(value);
+    }
+    if(propName === "address"){
+      setAddress(value);
+    }
+    if(propName === "city"){
+      setCity(value);
+    }
+    if(propName === "postalCode"){
+      setPostalCode(value);
+    }
+    if(propName === "country"){
+      setCountry(value);
+    }
+  }
 
   return (
     <div className="flex justify-center gap-6">
@@ -74,53 +100,15 @@ export default function UserForm({
           placeholder="email"
           disabled
         />
-        <label htmlFor="number">Phone number</label>
-        <input
-          id="number"
-          type="number"
-          placeholder="phone number"
-          value={`${phone}`}
-          onChange={(ev) => setPhone(ev.target.valueAsNumber)}
-        />
-        <label htmlFor="address">Street address</label>
-        <input
-          id="address"
-          type="text"
-          placeholder="street address"
-          value={`${address}`}
-          onChange={(ev) => setAddress(ev.target.value)}
-        />
-        <div className="flex gap-2">
-          <div className="grow">
-            <label htmlFor="city">City</label>
-            <input
-              id="city"
-              style={{ margin: 0 }}
-              type="text"
-              placeholder="city"
-              value={`${city}`}
-              onChange={(ev) => setCity(ev.target.value)}
-            />
-          </div>
-          <div className="">
-            <label htmlFor="postalCode">Postal code</label>
-            <input
-              id="postalCode"
-              style={{ margin: 0 }}
-              type="number"
-              placeholder="postal code"
-              value={`${postalCode}`}
-              onChange={(ev) => setPostalCode(ev.target.valueAsNumber)}
-            />
-          </div>
-        </div>
-        <label htmlFor="country">Country</label>
-        <input
-          id="country"
-          type="text"
-          placeholder="country"
-          value={`${country}`}
-          onChange={(ev) => setCountry(ev.target.value)}
+        <AddressInputs
+          addressProps={{
+            phone,
+            address,
+            city,
+            postalCode,
+            country,
+          }}
+          setAddressProps={handleAddressChange}
         />
         {/* ADMIN */}
         {loggedInUserData && (

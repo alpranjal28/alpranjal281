@@ -36,7 +36,10 @@ const Hero = () => {
             width={400}
             height={400}
             priority={true}
-            
+            style={{
+              width: "auto",
+              height: "auto",
+            }}
           />
         </div>
       </div>

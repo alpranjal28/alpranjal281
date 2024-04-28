@@ -64,6 +64,8 @@ export default function MenuCard(menuItem: any) {
     }
   }
 
+  const hasSizesOrExtras = sizes?.length > 0 || extraIngredients?.length > 0;
+
   return (
     <>
       {/* POPUP */}
@@ -189,7 +191,7 @@ export default function MenuCard(menuItem: any) {
           onClick={() => handleAddToCartButtonClick()}
           className="bg-primary text-white rounded-full px-6 py-2 mt-4"
         >
-          {sizes?.length > 0 || extraIngredients?.length > 0 ? (
+          {hasSizesOrExtras ? (
             <span>From (₹{basePrice})</span>
           ) : (
             <span>Add to cart (₹{basePrice})</span>

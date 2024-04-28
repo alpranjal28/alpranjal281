@@ -24,12 +24,13 @@ input[type="tel"]:disabled {
   @apply bg-gray-200 cursor-not-allowed text-gray-500;
 }
 
-label{
-  @apply text-gray-600 text-sm ml-2 ;
-  @apply relative top-1 p-1 pb-0 rounded-lg
+label {
+  @apply text-gray-600 text-sm ml-2;
+  @apply relative top-1 p-1 pb-0 rounded-lg;
 }
 
-button, .button {
+button,
+.button {
   @apply flex justify-center gap-2 w-full text-gray-800 font-semibold;
   @apply border border-gray-300 rounded-xl px-6 py-2;
 }
@@ -40,15 +41,19 @@ button[type="submit"],
 }
 
 button[type="submit"]:disabled,
-.submit:disabled{
-  @apply bg-red-400 cursor-not-allowed
+.submit:disabled {
+  @apply bg-red-400 cursor-not-allowed;
 }
 
 /* applies to anything that's a child */
 div.tabs > * {
-  @apply bg-gray-300 text-gray-700 rounded-full px-4 py-2
+  @apply bg-gray-300 text-gray-700 rounded-full px-4 py-2;
 }
 
-div.tabs > *.active{
-  @apply bg-primary text-white
+div.tabs > *.active {
+  @apply bg-primary text-white;
+}
+
+.flying-button-parent button{
+  @apply rounded-full border-0 bg-primary text-white;
 }

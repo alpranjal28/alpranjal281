@@ -197,6 +197,12 @@ export default function MenuCard(menuItem: any) {
             <span>Add to cart (₹{basePrice})</span>
           )}
         </button>
+        {/* <AddToCartButton 
+        hasSizesOrExtras={hasSizesOrExtras}
+        onClick={handleAddToCartButtonClick}
+        basePrice={basePrice}
+        image={image}
+        /> */}
       </div>
     </>
   );

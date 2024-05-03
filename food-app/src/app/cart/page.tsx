@@ -69,7 +69,7 @@ export default function CartPage() {
           {cartProducts?.length > 0 &&
             cartProducts.map((product: any, index: number) => (
               <div
-                key={product._id}
+                key={index}
                 className="flex items-center gap-4  border-b py-2 mx-2"
               >
                 <div className=" w-24">

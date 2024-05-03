@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 export default function EditUser() {
-  const { loading, data } = useProfile();
+  const { loading, admin } = useProfile();
   const { id } = useParams();
   const [user, setUser] = useState(null);
 
@@ -39,13 +39,13 @@ export default function EditUser() {
   }
 
   if (loading) return <Loading />;
-  if (!data) {
+  if (!admin) {
     return <h1>You are not an admin</h1>;
   }
 
   return (
     <section className="mt-8 max-w-2xl mx-auto">
-      <UserTabs isAdmin={true} />
+      <UserTabs isAdmin={admin} />
       <div className="mt-8">
         <UserForm user={user!} onSave={handleSaveButtonCick} />
       </div>

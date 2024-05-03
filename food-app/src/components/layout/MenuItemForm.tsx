@@ -75,10 +75,10 @@ export default function MenuItemForm({
       className="mt-8 mb-4 max-w-2xl"
     >
       <div
-        className="grid items-start gap-4"
+        className="md:grid items-start gap-4"
         style={{ gridTemplateColumns: ".3fr .7fr" }}
       >
-        <div className="max-w-[200px] max-h-[200px]">
+        <div className="max-w-[200px] max-h-[200px] mx-auto">
           <EditableImage link={image} setLink={setImage} />
         </div>
         <div className="grow">

@@ -8,8 +8,6 @@ import { useEffect, useState } from "react";
 
 export default function HomeMenu() {
   const [bestSellers, setBestSellers] = useState([]);
-  console.log(bestSellers);
-
   useEffect(() => {
     fetch("/api/menu-items").then((res) =>
       res.json().then((menuItems) => {
@@ -52,7 +50,7 @@ export default function HomeMenu() {
         </div>
       </div>
 
-      <div className="grid grid-cols-3 gap-4 place-content-center">
+      <div className="grid sm:grid-cols-3 xs:grid-cols-2 gap-4 place-content-center">
         {bestSellers.length > 0 &&
           bestSellers.map((item: any) => <MenuCard {...item} key={item._id} />)}
       </div>

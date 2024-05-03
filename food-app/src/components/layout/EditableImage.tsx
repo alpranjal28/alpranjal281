@@ -37,19 +37,23 @@ export default function EditableImage({
   }
 
   return (
-    <>
+    <div className="flex flex-col items-center mx-auto">
       {link && (
-        <Image
-          className="rounded-lg mt-5"
-          src={`${link}`}
-          width={96}
-          height={96}
-          alt="userImage"
-          priority={true}
-        />
+        <div className="">
+          <Image
+            className="rounded-lg w-full mt-5"
+            src={`${link}`}
+            width={96}
+            height={96}
+            alt="userImage"
+            priority={true}
+          />
+        </div>
       )}
       {!link && (
-        <div className="bg-gray-200 text-center px-4 py-8 text-gray-500 rounded-lg mt-4">No image</div>
+        <div className="bg-gray-200 text-center px-4 py-8 text-gray-500 rounded-lg mt-4">
+          No image
+        </div>
       )}
       <label>
         <input
@@ -62,9 +66,9 @@ export default function EditableImage({
           className="block border-2 border-gray-300 cursor-pointer 
                 font-semibold py-2 px-8 rounded-lg"
         >
-          Edit
+          Edit image
         </span>
       </label>
-    </>
+    </div>
   );
 }

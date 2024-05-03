@@ -1,6 +1,5 @@
 "use client";
 import useProfile from "@/components/UseProfile";
-import MenuCard from "@/components/card/MenuCard";
 import MenuCardAdmin from "@/components/card/MenuCardAdmin";
 import Right from "@/components/icons/Right";
 import Loading from "@/components/layout/Loading";
@@ -18,7 +17,7 @@ export default function MenuItemsPage() {
     image: string;
   }
 
-  const { loading, data } = useProfile();
+  const { loading, admin } = useProfile();
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   useEffect(() => {
     fetch("/api/menu-items").then((res) =>
@@ -31,13 +30,13 @@ export default function MenuItemsPage() {
   if (loading) {
     return <Loading />;
   }
-  if (!data) {
+  if (!admin) {
     return <h1>You are not an admin</h1>;
   }
 
   return (
     <section className="mt-8 max-w-2xl mx-auto">
-      <UserTabs isAdmin={true} />
+      <UserTabs isAdmin={admin} />
       <div className="mt-8">
         <Link className="button " href={"/menu-items/new"}>
           Create new menu item &nbsp;
@@ -46,7 +45,7 @@ export default function MenuItemsPage() {
       </div>
       <div className="">
         <h2 className="text-sm text-gray-500 mt-8">Edit menu items:</h2>
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid sm:grid-cols-3 gap-4">
           {menuItems?.length > 0 &&
             menuItems.map((item) => (
               <MenuCardAdmin {...item}/>

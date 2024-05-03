@@ -13,7 +13,7 @@ import toast from "react-hot-toast";
 
 export default function EditMenuItemPage() {
   const { _id }: { _id: string } = useParams();
-  const { loading, data } = useProfile();
+  const { loading, admin } = useProfile();
   const [menuItem, setMenuitem] = useState(null);
   const [redirectToItems, setRedirectToItems] = useState(false);
 
@@ -89,7 +89,7 @@ export default function EditMenuItemPage() {
   }
 
   if (loading) return <Loading />;
-  if (!data) {
+  if (!admin) {
     return <h1>You are not an admin</h1>;
   }
   if (redirectToItems) {
@@ -98,7 +98,7 @@ export default function EditMenuItemPage() {
 
   return (
     <section className="mt-8 max-w-2xl mx-auto">
-      <UserTabs isAdmin={true} />
+      <UserTabs isAdmin={admin} />
       <div className="">
         <Link className="button" href={"/menu-items"}>
           <Left /> Show all menu items

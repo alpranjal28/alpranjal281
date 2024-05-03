@@ -14,7 +14,7 @@ export default function Categories() {
     name: string;
   }
 
-  const { loading: profileLoading, data: profileData } = useProfile();
+  const { loading: profileLoading, data: profileData ,admin } = useProfile();
   const [catItem, setCatItem] = useState("");
   const [categories, setCategories] = useState<Category[]>([]);
   const [editedCat, setEditedCat] = useState<Category | null>(null);
@@ -90,7 +90,7 @@ export default function Categories() {
 
   return (
     <section className="mt-8 max-w-2xl mx-auto">
-      <UserTabs isAdmin={true} />
+      <UserTabs isAdmin={admin} />
       <form onSubmit={handleCatSubmit}>
         <div>
           <label htmlFor="">

@@ -1,5 +1,4 @@
 "use client";
-import EditableImage from "@/components/layout/EditableImage";
 import Loading from "@/components/layout/Loading";
 import UserForm from "@/components/layout/UserForm";
 import UserTabs from "@/components/layout/UserTabs";
@@ -24,17 +23,8 @@ interface User {
 export default function ProfilePage() {
   const session = useSession();
   const { status } = session;
-  // const [userName, setUserName] = useState<string>("");
-  // const [userEmail, setUserEmail] = useState<string>("");
-  // const [phone, setPhone] = useState<number>();
-  // const [address, setAddress] = useState<string>("");
-  // const [city, setCity] = useState<string>("");
-  // const [postalCode, setPostalCode] = useState<number>();
-  // const [country, setCountry] = useState<string>("");
-  // const [image, setImage] = useState<string>("");
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const [profileFetched, setProfileFetched] = useState(false);
-  // const userEmail = session.data?.user?.email;
 
   const [user, setUser] = useState<User>();
 
@@ -61,16 +51,8 @@ export default function ProfilePage() {
       fetch("/api/profile").then(async (resp) => {
         if (resp.ok) {
           const data = await resp.json();
-          // setPhone(data.phone);
-          // setAddress(data.address);
-          // setCity(data.city);
-          // setPostalCode(data.postalCode);
-          // setCountry(data.country);
-          // setUserName(data.name);
-          // setImage(data.image);
           setUser(data);
           setIsAdmin(data.admin);
-          // setUserEmail(data.email);
           setProfileFetched(true);
         }
       });
@@ -87,10 +69,6 @@ export default function ProfilePage() {
   return (
     <section className="mt-8">
       <UserTabs isAdmin={isAdmin} />
-
-      {/* <h1 className="text-center text-primary text-4xl font-semibold mb-8">
-        Profile
-      </h1> */}
       <div className=" max-w-2xl mx-auto">
         <UserForm user={user!} onSave={handleProfileInfoUpdate} />
       </div>

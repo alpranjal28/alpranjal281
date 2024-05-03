@@ -6,24 +6,24 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function UsersPage() {
-  const { loading, data } = useProfile();
+  const { loading, admin } = useProfile();
   const [users, setUsers] = useState([]);
   useEffect(() => {
     fetch("/api/users")
       .then((res) => res.json())
       .then((users) => setUsers(users));
   }, []);
-
+  
   if (loading) {
     return <Loading />;
   }
-  if (!data) {
+  if (!admin) {
     return <h1>You are not an admin</h1>;
   }
 
   return (
     <section className="max-w-2xl mt-8 mb-4 mx-auto">
-      <UserTabs isAdmin={true} />
+      <UserTabs isAdmin={admin} />
 
       <div className=" mt-8">
         {users?.length > 0 &&
@@ -32,7 +32,7 @@ export default function UsersPage() {
               className="bg-gray-200 rounded-lg flex mb-2 items-center p-4 gap-4"
               key={user[`_id`]}
             >
-              <div className=" grid grid-cols-2 md:grid-cols-3 gap-4 grow">
+              <div className=" grid sm:grid-cols-2 md:grid-cols-3 sm:gap-4 grow">
                 <span className="text-gray-900 font-medium">
                   {[user[`name`] || <i>No name</i>]}
                 </span>

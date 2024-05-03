@@ -35,13 +35,6 @@ export default function UserForm({
   const [image, setImage] = useState<string>(user?.image || "");
   const [admin, setAdmin] = useState<boolean>(user?.admin || false);
 
-
-  // ChangeEvent<HTMLInputElement>.target: EventTarget & HTMLInputElement
-  // write an interface for value which can be either string or number for setstateaction
-
-
-  
-
   function handleAddressChange(propName:string,value:React.SetStateAction<any>){
     if(propName === "phone"){
       setPhone(value);
@@ -61,7 +54,7 @@ export default function UserForm({
   }
 
   return (
-    <div className="flex justify-center gap-6">
+    <div className="md:flex justify-center gap-6">
       <div className="">
         <div className="p-1 rounded-lg text-center">
           <EditableImage link={image} setLink={setImage} />

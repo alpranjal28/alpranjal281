@@ -18,13 +18,13 @@ export default function MenuCardAdmin({
     <>
       <Link
         href={"/menu-items/edit/" + _id}
-        className=" bg-gray-300 rounded-lg p-4"
+        className=" bg-gray-300 rounded-lg p-4 max-w-60 mx-auto"
         key={_id}
       >
-        <div className=" flex-col overflow-hidden">
-          <div className="block h-48">
+        <div className="flex-col overflow-hidden rounded-md">
+          <div className="block h-48 ">
             <Image
-              className=" rounded-md"
+              className="mx-auto"
               src={image}
               alt=""
               width={200}

@@ -11,11 +11,11 @@ import { FormEvent, useState } from "react";
 import toast from "react-hot-toast";
 
 export default function NewMenuItemsPage() {
-  const { loading, data } = useProfile();
+  const { loading, admin } = useProfile();
   const [redirectToItems, setRedirectToItems] = useState(false);
 
   if (loading) return <Loading />;
-  if (!data) {
+  if (!admin) {
     return <h1>You are not an admin</h1>;
   }
 
@@ -61,7 +61,7 @@ export default function NewMenuItemsPage() {
   }
   return (
     <section className="mt-8 max-w-2xl mx-auto">
-      <UserTabs isAdmin={true} />
+      <UserTabs isAdmin={admin} />
       <div className="">
         <Link className="button" href={"/menu-items"}>
           <Left /> Show all menu items

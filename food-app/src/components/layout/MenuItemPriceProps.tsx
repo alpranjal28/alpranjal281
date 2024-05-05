@@ -84,7 +84,7 @@ export default function MenuItemPriceProps({
                 <label htmlFor="extras">Price</label>
                 <input
                   type="number"
-                  id="extras"
+                  id="extraPrice"
                   placeholder="Extra price"
                   value={size["price"]} //
                   onChange={(ev) => editProps(ev, index, "price")}

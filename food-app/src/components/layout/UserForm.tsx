@@ -3,6 +3,8 @@ import { SetStateAction, useState } from "react";
 import EditableImage from "./EditableImage";
 import useProfile from "../UseProfile";
 import AddressInputs from "./AddressInputs";
+import Link from "next/link";
+import Left from "../icons/Left";
 
 interface User {
   _id?: string;
@@ -55,6 +57,11 @@ export default function UserForm({
 
   return (
     <div className="md:flex justify-center gap-6">
+      <div className="">
+        <Link className="button" href={"/users"}>
+          <Left /> Show all users
+        </Link>
+      </div>
       <div className="">
         <div className="p-1 rounded-lg text-center">
           <EditableImage link={image} setLink={setImage} />

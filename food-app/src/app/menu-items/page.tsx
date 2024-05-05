@@ -48,7 +48,7 @@ export default function MenuItemsPage() {
         <div className="grid sm:grid-cols-3 gap-4">
           {menuItems?.length > 0 &&
             menuItems.map((item) => (
-              <MenuCardAdmin {...item}/>
+              <MenuCardAdmin key={item._id} {...item}/>
             ))}
         </div>
       </div>

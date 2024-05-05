@@ -33,7 +33,7 @@ export default function NewMenuItemsPage() {
     data: MenuItemNew) {
     ev.preventDefault();
     // data = { image, name, desc, basePrice };
-    console.log(data);
+    // console.log(data);
     const savingPromise = new Promise(async (resolve, reject) => {
       const resp = await fetch("/api/menu-items", {
         method: "POST",

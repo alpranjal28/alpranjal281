@@ -29,6 +29,11 @@ export default function MenuCardAdmin({
               alt=""
               width={200}
               height={200}
+              style={{
+                width: "auto",
+                height: "auto",
+              }}
+              priority
             />
           </div>
         </div>

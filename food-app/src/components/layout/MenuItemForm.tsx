@@ -56,7 +56,6 @@ export default function MenuItemForm({
         setCategories(categories);
       });
     });
-    console.log(categories);
   }, []);
 
   return (
@@ -86,7 +85,7 @@ export default function MenuItemForm({
           <input
             type="text"
             id="item-name"
-            value={name}
+            value={name || ""}
             onChange={(ev) => setName(ev.target.value)}
           />
 
@@ -96,7 +95,7 @@ export default function MenuItemForm({
             id="item-desc"
             minLength={60}
             maxLength={120}
-            value={desc}
+            value={desc || ""}
             onChange={(e) => setDesc(e.target.value)}
           />
 
@@ -104,12 +103,14 @@ export default function MenuItemForm({
           <select
             name=""
             id="item-cat"
-            value={category}
+            value={category || ""}
             onChange={(e) => setCategory(e.target.value)}
           >
             {categories?.length > 0 &&
-              categories.map((c) => (
-                <option value={c!["_id"]}>{c!["name"]}</option>
+              categories.map((c: any) => (
+                <option key={c._id} value={c!["_id"]}>
+                  {c!["name"]}
+                </option>
               ))}
           </select>
 
@@ -117,7 +118,7 @@ export default function MenuItemForm({
           <input
             type="text"
             id="item-b-price"
-            value={basePrice}
+            value={basePrice || ""}
             onChange={(e) => setBasePrice(e.target.value)}
           />
 

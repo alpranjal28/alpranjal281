@@ -37,16 +37,20 @@ export default function EditableImage({
   }
 
   return (
-    <div className="flex flex-col items-center mx-auto">
+    <div className="flex flex-col items-center justify-center mx-auto">
       {link && (
         <div className="">
           <Image
             className="rounded-lg w-full mt-5"
-            src={`${link}`}
+            src={link}
             width={96}
             height={96}
-            alt="userImage"
-            priority={true}
+            alt="Food Image"
+            style={{
+              width: "auto",
+              height: "auto",
+            }}
+            priority
           />
         </div>
       )}

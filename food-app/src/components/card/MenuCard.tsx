@@ -114,7 +114,7 @@ export default function MenuCard(menuItem: any) {
                       <input
                         type="radio"
                         name="size"
-                        onClick={() => setSelectedSize(size)}
+                        onChange={() => setSelectedSize(size)}
                         checked={selectedSize?.name === size.name}
                         className=""
                       />
@@ -139,7 +139,7 @@ export default function MenuCard(menuItem: any) {
                     >
                       <input
                         type="checkbox"
-                        onClick={(ev) => handleAddOnsClick(ev, extraIngredient)}
+                        onChange={(ev) => handleAddOnsClick(ev, extraIngredient)}
                         checked={selectedExtras.includes(extraIngredient)}
                         className="bg-green-200"
                       />

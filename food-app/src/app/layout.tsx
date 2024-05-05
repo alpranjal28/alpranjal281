@@ -9,6 +9,10 @@ import { Toaster } from "react-hot-toast";
 const roboto = Roboto({
   subsets: ["latin"],
   weight: ["300", "400", "500", "700"],
+  variable: "--font-roboto",
+  display: "swap",
+  fallback: ["Helvetica", "Arial", "sans-serif"],
+  preload: true,
 });
 
 export const metadata: Metadata = {

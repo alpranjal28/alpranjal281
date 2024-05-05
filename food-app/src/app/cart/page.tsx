@@ -30,11 +30,8 @@ export default function CartPage() {
   }, [profileData]);
 
   function handleAddressChange(propName: any, value: any) {
-    console.log(propName);
-    console.log(value);
-
     setAddress((prevAddress: any) => ({ ...prevAddress, [propName]: value }));
-  } ///
+  }
 
   let totalPrice = 0;
   let deliveryPrice = 50;
@@ -49,8 +46,12 @@ export default function CartPage() {
           <SectionHeader mainHeader="Cart" subHeader="" />
         </div>
 
-        <div className="text-center mt-8 font-semibold">No products in your shopping cart</div>
-        <div className=""><EmptyCart/></div>
+        <div className="text-center mt-8 font-semibold">
+          No products in your shopping cart
+        </div>
+        <div className="">
+          <EmptyCart />
+        </div>
       </section>
     );
   }

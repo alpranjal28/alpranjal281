@@ -96,7 +96,7 @@ const Header = () => {
 
       {/* DESKTOP */}
       <div className="hidden md:flex items-center justify-between uppercase font-semibold text-gray-600 my-2">
-        <nav className=" gap-6 flex justify-between items-center">
+        <nav className=" gap-4 flex justify-between items-center">
           <Link href="/" className=" text-primary  text-2xl">
             THE ROllS DIARY
           </Link>

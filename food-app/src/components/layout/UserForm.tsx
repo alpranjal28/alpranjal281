@@ -37,20 +37,23 @@ export default function UserForm({
   const [image, setImage] = useState<string>(user?.image || "");
   const [admin, setAdmin] = useState<boolean>(user?.admin || false);
 
-  function handleAddressChange(propName:string,value:React.SetStateAction<any>){
-    if(propName === "phone"){
+  function handleAddressChange(
+    propName: string,
+    value: React.SetStateAction<any>
+  ) {
+    if (propName === "phone") {
       setPhone(value);
     }
-    if(propName === "address"){
+    if (propName === "address") {
       setAddress(value);
     }
-    if(propName === "city"){
+    if (propName === "city") {
       setCity(value);
     }
-    if(propName === "postalCode"){
+    if (propName === "postalCode") {
       setPostalCode(value);
     }
-    if(propName === "country"){
+    if (propName === "country") {
       setCountry(value);
     }
   }
@@ -91,6 +94,7 @@ export default function UserForm({
           placeholder="First and last name"
           value={`${userName}`}
           onChange={(ev) => setUserName(ev.target.value)}
+          autoComplete="true"
         />
         <label htmlFor="email">Email</label>
         <input
@@ -98,6 +102,7 @@ export default function UserForm({
           type="email"
           value={user.email}
           placeholder="email"
+          autoComplete="off"
           disabled
         />
         <AddressInputs
@@ -123,7 +128,7 @@ export default function UserForm({
                 id="adminCheckbox"
                 checked={admin}
                 onChange={(e) => setAdmin(!admin)}
-                // onClick={(e) => setAdmin(!admin)}
+                disabled
               />
               <span>Admin</span>
             </label>

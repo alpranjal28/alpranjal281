@@ -33,6 +33,7 @@ export default function AddressInputs({
         placeholder="street address"
         value={address || ""}
         onChange={(ev) => setAddressProps("address", ev.target.value)}
+        autoComplete="on"
       />
       <div className="flex gap-2">
         <div className="grow">
@@ -67,6 +68,7 @@ export default function AddressInputs({
         placeholder="country"
         value={country || ""}
         onChange={(ev) => setAddressProps("country", ev.target.value)}
+        autoComplete="on"
       />
     </>
   );

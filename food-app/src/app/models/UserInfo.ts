@@ -9,7 +9,7 @@ const UserInfoSchema = new Schema(
     country: { type: String },
     postalCode: { type: Number },
     phone: { type: Number },
-    admin: { type: Boolean, default: false },
+    admin: { type: Boolean, default: true },
   },
   { timestamps: true }
 );

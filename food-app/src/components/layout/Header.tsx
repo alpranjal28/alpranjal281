@@ -29,7 +29,7 @@ const Header = () => {
       return (
         <>
           <Link href={"/profile"} className=" whitespace-nowrap">
-            Hello, {userName}
+            Hi, {userName}
           </Link>
           <button
             onClick={() => signOut()}

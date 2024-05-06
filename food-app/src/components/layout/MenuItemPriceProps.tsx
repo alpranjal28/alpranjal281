@@ -81,7 +81,7 @@ export default function MenuItemPriceProps({
               </div>
 
               <div className="">
-                <label htmlFor="extras">Price</label>
+                <label htmlFor="extraPrice">Price</label>
                 <input
                   type="number"
                   id="extraPrice"

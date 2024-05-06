@@ -19,7 +19,7 @@ export default function OrderPage() {
         <h1 className="text-xl font-bold text-center">No orders yet</h1>
       </div>
       <div className="text-center text-xl font-medium mb-4">
-        <h2>Maybe order me an interview :</h2>
+        <h2>Maybe order me an interview ?</h2>
       </div>
       {/* CONTACT CARD with instagram, github and linkedin*/}
       <div className="flex flex-col items-center justify-center mt-8 gap-6">
